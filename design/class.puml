@@ -5,12 +5,12 @@ interface Player {
 }
 
 class HumanPlayer extends Player {
-    + makeMove(board: GameBoard): void;
+    + makeMove(board: GameBoard): void -> exception IllegalMoveException;
 }
 
 class ComputerPlayer extends Player {
     - difficulty: GameDifficulty;
-    + makeMove(board: GameBoard): void -> exception IllegalMoveException;
+    + makeMove(board: GameBoard): void;
 }
 
 enum GameDifficulty {
@@ -50,12 +50,16 @@ class GameBoard {
     - board: Tile[width][height]
     
     + GameBoard(int width, int height)
+    + placeMove(x: int, y: int, symbol: GameSymbol): void -> exception IllegalMoveException
+    + isTileEmpty(x: int, y: int): boolean
+    + getTileStatus(x: int, y: int): GameSymbol
 }
 
 class TicTacToeController {
     + startGame(): void
     + updateGame(): void
     + buildScene(): void
+    + handleMove(player: Player, x: int, y: int): void -> exception IllegalMoveException
 }
 
 
@@ -75,7 +79,7 @@ enum GameType {
 GameBoard -- Tile
 TicTacToeController -- Player
 TicTacToeController -- Judger
-Player -- Exception
+HumanPlayer -- Exception
 Tile -- GameSymbol
 TicTacToeController -- GameBoard
 TicTacToeApp -- TicTacToeController
