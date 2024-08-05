@@ -1,0 +1,88 @@
+@startuml
+
+interface Player {
+    makeMove(board: GameBoard): void;
+}
+
+class HumanPlayer extends Player {
+    + makeMove(board: GameBoard): void -> exception IllegalMoveException;
+}
+
+class ComputerPlayer extends Player {
+    - difficulty: GameDifficulty;
+    + makeMove(board: GameBoard): void;
+}
+
+enum GameDifficulty {
+    Easy, Intermediate, Hard, Insane
+}
+
+interface Judger {
+    isWonByFirst(board: GameBoard): boolean;
+    isWonByLast(board: GameBoard): boolean;
+    isDraw(board: GameBoard): boolean;
+    isGameOver(board: GameBoard): boolean;
+}
+
+class TicTacToeJudger extends Judger {
+    + isWonByFirst(board: GameBoard): boolean;
+    + isWonByLast(board: GameBoard): boolean;
+    + isDraw(board: GameBoard): boolean;
+    + isGameOver(board: GameBoard): boolean;
+}
+
+enum GameSymbol {
+    X, O
+}
+
+class Tile {
+    - isEmpty: boolean;
+    - status: GameSymbol;
+
+    + isEmpty(): boolean;
+    + getStatus(): GameSymbol;
+    + setStatus(status: GameSymbol): void;
+}
+
+class GameBoard {
+    - width: int
+    - height: int
+    - board: Tile[width][height]
+    
+    + GameBoard(int width, int height)
+    + placeMove(x: int, y: int, symbol: GameSymbol): void -> exception IllegalMoveException
+    + isTileEmpty(x: int, y: int): boolean
+    + getTileStatus(x: int, y: int): GameSymbol
+}
+
+class TicTacToeController {
+    + startGame(): void
+    + updateGame(): void
+    + buildScene(): void
+    + handleMove(player: Player, x: int, y: int): void -> exception IllegalMoveException
+}
+
+
+class IllegalMoveException extends Exception {
+
+}
+
+class TicTacToeApp {
+    startApp(): void
+    makeGame(type: GameType): void
+}
+
+enum GameType {
+    PlayerVsPlayer, PlayerVsComputer
+}
+
+GameBoard -- Tile
+TicTacToeController -- Player
+TicTacToeController -- Judger
+HumanPlayer -- Exception
+Tile -- GameSymbol
+TicTacToeController -- GameBoard
+TicTacToeApp -- TicTacToeController
+TicTacToeApp -- GameType
+ComputerPlayer -- GameDifficulty
+@enduml
