@@ -1,5 +1,6 @@
 package org.ai.tictactoe.game;
 
+
 import java.util.ArrayList;
 
 public class GameBoard {
@@ -150,7 +151,7 @@ public class GameBoard {
 
     /**
      * Checks if the given position is within board range
-     * 
+     *
      * @param row the board row
      * @param col the board column
      * @return boolean (true/false)
@@ -239,7 +240,7 @@ public class GameBoard {
 
     /**
      * Gets all empty positions on the board
-     * 
+     *
      * @return an array of pairs [even index, odd index, ...etc], where each
      *         consecutive 2 numbers represents the (row, col) of an empty position
      */

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.ai.tictactoe.game.GameType;
 import org.ai.tictactoe.player.GameDifficulty;
 
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class ComputerLevelController {
     }
 
     private void enterGame(ActionEvent event) {
+        GameController.gameType = GameType.PLAYER_VS_AI;
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = null;
         try {
