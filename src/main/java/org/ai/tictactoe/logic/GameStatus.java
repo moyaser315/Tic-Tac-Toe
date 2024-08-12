@@ -1,8 +1,5 @@
 package org.ai.tictactoe.logic;
 
 public enum GameStatus {
-    IN_PROGRESS,
-    X_WIN,
-    O_WIN,
-    DRAW;
+    X_WIN, O_WIN, DRAW, IN_PROGRESS;
 }
