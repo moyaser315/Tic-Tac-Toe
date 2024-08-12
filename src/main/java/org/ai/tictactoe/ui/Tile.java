@@ -1,4 +1,6 @@
-package org.ai.tictactoe.game;
+package org.ai.tictactoe.ui;
+
+import org.ai.tictactoe.logic.GameSymbol;
 
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;

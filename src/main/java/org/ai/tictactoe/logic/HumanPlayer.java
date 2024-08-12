@@ -1,6 +1,4 @@
-package org.ai.tictactoe.player;
-
-import org.ai.tictactoe.game.GameBoard;
+package org.ai.tictactoe.logic;
 
 public class HumanPlayer implements Player {
     @Override

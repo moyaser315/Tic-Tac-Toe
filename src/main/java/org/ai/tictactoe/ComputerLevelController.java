@@ -5,7 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.ai.tictactoe.game.GameType;
+
+import org.ai.tictactoe.logic.GameType;
 import org.ai.tictactoe.player.GameDifficulty;
 
 import java.io.IOException;

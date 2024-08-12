@@ -1,4 +1,4 @@
-package org.ai.tictactoe.game;
+package org.ai.tictactoe.logic;
 
 
 import java.util.ArrayList;
@@ -220,11 +220,11 @@ public class GameBoard {
      */
     public GameStatus placeMove(final int row, final int col, final GameSymbol symbol) throws Exception {
         if (!validPosition(row, col)) {
-            throw new IllegalMoveException("Out of grid");
+            throw new Exception("Out of grid");
         } else if (grid[row][col] != null) {
-            throw new IllegalMoveException("Position already occupied");
+            throw new Exception("Position already occupied");
         } else if (plays == grid.length * grid.length) {
-            throw new IllegalMoveException("Game is already over");
+            throw new Exception("Game is already over");
         } else if (status != GameStatus.IN_PROGRESS) {
             return status;
         }

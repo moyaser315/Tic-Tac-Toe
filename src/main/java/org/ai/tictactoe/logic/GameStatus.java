@@ -1,4 +1,4 @@
-package org.ai.tictactoe.game;
+package org.ai.tictactoe.logic;
 
 public enum GameStatus {
     IN_PROGRESS,

@@ -1,6 +1,4 @@
-package org.ai.tictactoe.judge;
-
-import org.ai.tictactoe.game.GameBoard;
+package org.ai.tictactoe.logic;
 
 public interface Judger {
     boolean isGameOver(GameBoard board);

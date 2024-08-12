@@ -6,14 +6,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import org.ai.tictactoe.game.GameBoard;
-import org.ai.tictactoe.game.GameSymbol;
-import org.ai.tictactoe.game.GameType;
-import org.ai.tictactoe.game.Tile;
-import org.ai.tictactoe.player.ComputerPlayer;
+
+import org.ai.tictactoe.logic.ComputerPlayer;
+import org.ai.tictactoe.logic.GameBoard;
+import org.ai.tictactoe.logic.GameSymbol;
+import org.ai.tictactoe.logic.GameType;
+import org.ai.tictactoe.logic.HumanPlayer;
+import org.ai.tictactoe.logic.Player;
 import org.ai.tictactoe.player.GameDifficulty;
-import org.ai.tictactoe.player.HumanPlayer;
-import org.ai.tictactoe.player.Player;
+import org.ai.tictactoe.ui.Tile;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -1,12 +1,9 @@
-package org.ai.tictactoe.player;
-
-import org.ai.tictactoe.game.GameBoard;
-import org.ai.tictactoe.game.GameSymbol;
+package org.ai.tictactoe.logic;
 
 public class ComputerPlayer implements Player {
-    private GameDifficulty difficulty;
+    private int difficulty;
 
-    public ComputerPlayer(GameDifficulty difficulty) {
+    public ComputerPlayer(int difficulty) {
         this.difficulty = difficulty;
     }
 
