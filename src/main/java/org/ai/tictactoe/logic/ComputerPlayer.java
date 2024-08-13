@@ -1,18 +1,51 @@
-package org.ai.tictactoe.logic;
+package org.ai.tictactoe.logic.player;
 
-public class ComputerPlayer implements Player {
-    private int difficulty;
+import org.ai.tictactoe.logic.game.GameBoard;
+import org.ai.tictactoe.logic.game.GameSymbol;
 
-    public ComputerPlayer(int difficulty) {
-        this.difficulty = difficulty;
+public class ComputerPlayer extends Player {
+    private final int difficulty;
+
+    public ComputerPlayer(GameSymbol sym, int diff) {
+        super(sym);
+        difficulty = diff;
     }
 
-    @Override
-    public void makeMove(GameBoard board) {
-        try {
-            board.placeMove(6, 6, GameSymbol.O);
-        } catch (Exception e) {
-//            throw new RuntimeException(e);
+    public void play(GameBoard b) {
+        int[] move = {0, -1, -1};
+        for (int depth = 1; depth <= difficulty; depth++) {
+            int[] play = MinMax.optimalMove(b, Integer.MIN_VALUE, Integer.MAX_VALUE, depth, s);
+            if (s == GameSymbol.O) {
+                if (move[1] == -1 || play[0] > move[0]) {
+                    move = play;
+                }
+            } else {
+                if (move[1] == -1 || play[0] < move[0]) {
+                    move = play;
+                }
+            }
+            
+            // System.out.println("iterating");
+            if (s == GameSymbol.O) {
+                if (move[0] == Integer.MAX_VALUE - 10) {
+                    break;
+                }
+            } else {
+                if (move[0] == -(Integer.MAX_VALUE - 10)) {
+                    break;
+                }
+            }
         }
+
+        // System.out.println("End iterative");
+        // if (move[1] == -1 || move[2] == -1) {
+        //     while (!b.isEmpty(move[1], move[2])) {
+        //         move[1] = new Random().nextInt() % 7;
+        //         move[2] = new Random().nextInt() % 7;
+        //     }
+        //     System.out.println("Random move");
+        // }
+
+        b.place(s, move[1], move[2]);
     }
 }
