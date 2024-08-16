@@ -26,3 +26,20 @@
     -fx-background-color: #AA0000;
 }
 
+.btn6 {
+    -fx-background-color: #4A78D1;
+    -fx-border-radius: 50px; /* Rounded corners */
+    -fx-background-radius: 50px; /* Matching rounded background */
+    -fx-border-color: #2a7fbf; /* Border color slightly darker than background */
+    -fx-border-width: 2px; /* Border thickness */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+}
+
+.btn6:hover {
+    -fx-background-color: #328ac1; /* Slightly darker blue on hover */
+}
+
+.btn6:pressed {
+    -fx-background-color: #286d99; /* Even darker blue when pressed */
+    -fx-padding: 11px 21px 9px 19px; /* Slight "inset" effect */
+}

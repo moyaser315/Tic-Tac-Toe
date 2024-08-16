@@ -16,11 +16,11 @@ public class MinMax {
             for (int col = 0; col < b.size(); col++) {
                 if (b.isValidPosition(row, col) && b.isEmpty(row, col)) {
                     b.place(s, row, col);
+                    GameStatus playState = Judger.getJudger().getStateAferPlay(b, row, col);
                     int playScore = Judger.getJudger().getScore(b, row, col);
 
                     int[] opp = null;
-                    if (s == GameSymbol.O ? (playScore == Integer.MAX_VALUE - 10 || playScore == Integer.MAX_VALUE - 20)
-                            : (playScore == -(Integer.MAX_VALUE - 10) || playScore == -(Integer.MAX_VALUE - 20))) {
+                    if (playState == GameStatus.X_WIN || playState == GameStatus.O_WIN || playState == GameStatus.DRAW) {
                         opp = optimalMove(b, alpha, beta, 0, s == GameSymbol.O ? GameSymbol.X : GameSymbol.O);
                     } else {
                         opp = optimalMove(b, alpha, beta, depth - 1, s == GameSymbol.O ? GameSymbol.X : GameSymbol.O);
