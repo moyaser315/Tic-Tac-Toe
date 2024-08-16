@@ -2,23 +2,27 @@
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #88C6FF, #3A78D1);;
 }
 
+.btn0 {
+    -fx-background-color: #00b300;
+}
+
 .btn1 {
     -fx-background-color: #3A78D1;
 }
 
 .btn2 {
-    -fx-background-color: #F90B31;
+    -fx-background-color: #dc0000;
 }
 
 .btn3 {
-    -fx-background-color: #FF6868;
+    -fx-background-color: #FF4242;
 }
 
 .btn4 {
-    -fx-background-color: #FF5656;
+    -fx-background-color: #FF0009;
 }
 
 .btn5 {
-    -fx-background-color: #D01B1B;
+    -fx-background-color: #AA0000;
 }
 

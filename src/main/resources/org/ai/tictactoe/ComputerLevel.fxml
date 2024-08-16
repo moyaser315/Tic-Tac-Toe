@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="780.0" prefWidth="1140.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ai.tictactoe.ComputerLevelController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="780.0" prefWidth="1140.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ai.tictactoe.controllers.ComputerLevelController">
     <children>
         <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#22242a" height="680.0" stroke="BLACK" strokeType="INSIDE" width="1100.0" />
         <VBox prefHeight="430.0" prefWidth="1140.0">
