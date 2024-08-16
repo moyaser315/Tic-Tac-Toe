@@ -190,14 +190,9 @@ public class GameController implements Initializable {
 
             // Computer's move in a separate thread
             new Thread(() -> {
-                playAsComputer(player2);
-                // Get the status after computer's move
-                GameStatus computerStatus = judger.getStateAferPlay(gameBoard, lastMove.getX(), lastMove.getY());
-
                 // Update the UI after computer's move on the JavaFX Application Thread
                 Platform.runLater(() -> {
-                    updateGameBoard();
-                    playStatus(computerStatus);
+                    GameStatus computerStatus = playAsComputer(player2);
                     currentCount++;
                     checkEndGame(computerStatus);
 

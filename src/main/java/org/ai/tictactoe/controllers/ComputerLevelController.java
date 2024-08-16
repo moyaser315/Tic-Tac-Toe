@@ -14,7 +14,7 @@ public class ComputerLevelController {
     private static final int EASY = 1;
     private static final int MEDIUM = 2;
     private static final int HARD = 3;
-    private static final int INSANE = 5;
+    private static final int INSANE = 4;
 
     public void chooseInsaneLevel(ActionEvent event) {
         GameController.difficultyLevel = INSANE;
