@@ -115,12 +115,15 @@ public class GameController implements Initializable {
             if (status[0].equals(GameStatus.IN_PROGRESS)) {
                 if (firstTurn) {
                     status[0] = playAsComputer(player1);
+                    playStatus(status[0]);
                 } else {
                     status[0] = playAsComputer(player2);
+                    playStatus(status[0]);
                 }
                 if (status[0] != null && (checkWin(status[0]) || status[0].equals(GameStatus.DRAW))) {
                     checkEndGame(status[0]);
                 }
+
                 firstTurn = !firstTurn;
             }
         }));
@@ -190,12 +193,12 @@ public class GameController implements Initializable {
 
             // Computer's move in a separate thread
             new Thread(() -> {
+                GameStatus computerStatus = playAsComputer(player2);
                 // Update the UI after computer's move on the JavaFX Application Thread
                 Platform.runLater(() -> {
-                    GameStatus computerStatus = playAsComputer(player2);
                     currentCount++;
+                    playStatus(computerStatus);
                     checkEndGame(computerStatus);
-
                     // Re-enable the board after the computer's move is done
                     for (Node node : boardGrid.getChildren()) {
                         node.setDisable(false);
@@ -292,7 +295,6 @@ public class GameController implements Initializable {
     private GameStatus playAsComputer(Player computer) {
         computer.play(gameBoard);
         GameStatus status = judger.getStateAferPlay(gameBoard, gameBoard.getLastPlay()[0], gameBoard.getLastPlay()[1]);
-        playStatus(status);
         updateGraphicBoard();
         return status;
     }
