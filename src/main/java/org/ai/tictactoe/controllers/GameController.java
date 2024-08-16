@@ -43,7 +43,6 @@ public class GameController implements Initializable {
     private Player player2;
     private Judger judger;
 
-    private GameStatus status;
 
     @FXML
     private Text statusScreen;
@@ -57,6 +56,7 @@ public class GameController implements Initializable {
     private Pane btnPane;
 
     private boolean firstTurn = false;
+    private boolean isComputerPlaying = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -113,16 +113,15 @@ public class GameController implements Initializable {
 
         Timeline firstTimeline = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
             if (status[0].equals(GameStatus.IN_PROGRESS)) {
-                status[0] = playAsComputer(player1);
-                if (status[0] != null && (checkWin(status[0]) || status[0].equals(GameStatus.DRAW))) {
-                    checkEndGame(status[0]);
-                    return;
+                if (firstTurn) {
+                    status[0] = playAsComputer(player1);
+                } else {
+                    status[0] = playAsComputer(player2);
                 }
-
-                status[0] = playAsComputer(player2);
                 if (status[0] != null && (checkWin(status[0]) || status[0].equals(GameStatus.DRAW))) {
                     checkEndGame(status[0]);
                 }
+                firstTurn = !firstTurn;
             }
         }));
 
@@ -147,7 +146,7 @@ public class GameController implements Initializable {
         }
 
         updateGameBoard();
-        status = judger.getStateAferPlay(gameBoard, lastMove.getX(), lastMove.getY());
+        GameStatus status = judger.getStateAferPlay(gameBoard, lastMove.getX(), lastMove.getY());
 
         playStatus(status);
         if (status != null && (checkWin(status) || status.equals(GameStatus.DRAW))) {
@@ -162,23 +161,57 @@ public class GameController implements Initializable {
 
     @FXML
     private void handlePlayerVsAI() {
-        if (!isBoardChanged()) {
-            return;
-        } else {
-            currentCount++;
+        if (!isComputerPlaying) {
+            if (!isBoardChanged()) {
+                for (Node node : boardGrid.getChildren()) {
+                    node.setDisable(false); // Ensure the board is enabled if nothing changed
+                }
+                return;
+            } else {
+                currentCount++;
+            }
+
+            // Player's move
+            ((HumanPlayer) player1).play(gameBoard, new int[]{lastMove.getX(), lastMove.getY()});
+            GameStatus status = judger.getStateAferPlay(gameBoard, lastMove.getX(), lastMove.getY());
+
+            // Update the UI after player's move
+            updateGameBoard();
+            playStatus(status);
+
+            // Check if the game ends after player's move
+            if (checkEndGame(status)) return;
+
+            // Disable the board and mark the computer as playing
+            isComputerPlaying = true;
+            for (Node node : boardGrid.getChildren()) {
+                node.setDisable(true);
+            }
+
+            // Computer's move in a separate thread
+            new Thread(() -> {
+                playAsComputer(player2);
+                // Get the status after computer's move
+                GameStatus computerStatus = judger.getStateAferPlay(gameBoard, lastMove.getX(), lastMove.getY());
+
+                // Update the UI after computer's move on the JavaFX Application Thread
+                Platform.runLater(() -> {
+                    updateGameBoard();
+                    playStatus(computerStatus);
+                    currentCount++;
+                    checkEndGame(computerStatus);
+
+                    // Re-enable the board after the computer's move is done
+                    for (Node node : boardGrid.getChildren()) {
+                        node.setDisable(false);
+                    }
+                    isComputerPlaying = false;
+                });
+            }).start();
         }
-
-        ((HumanPlayer) player1).play(gameBoard, new int[]{lastMove.getX(), lastMove.getY()});
-        status = judger.getStateAferPlay(gameBoard, lastMove.getX(), lastMove.getY());
-        updateGameBoard();
-        playStatus(status);
-
-        if(checkEndGame(status)) return;
-
-        playAsComputer(player2);
-        currentCount++;
-        checkEndGame(status);
     }
+
+
 
     private boolean isBoardChanged() {
         int count = 0;
@@ -263,8 +296,8 @@ public class GameController implements Initializable {
 
     private GameStatus playAsComputer(Player computer) {
         computer.play(gameBoard);
+        GameStatus status = judger.getStateAferPlay(gameBoard, gameBoard.getLastPlay()[0], gameBoard.getLastPlay()[1]);
         playStatus(status);
-        status = judger.getStateAferPlay(gameBoard, gameBoard.getLastPlay()[0], gameBoard.getLastPlay()[1]);
         updateGraphicBoard();
         return status;
     }
