@@ -1,7 +1,5 @@
 package org.ai.tictactoe.ui;
 
-import org.ai.tictactoe.logic.GameSymbol;
-
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
@@ -9,7 +7,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import org.ai.tictactoe.logic.game.GameSymbol;
 
 
 public class Tile extends StackPane {
@@ -37,8 +37,9 @@ public class Tile extends StackPane {
         shadow.setRadius(5);
         border.setEffect(shadow);
 
-        text.setFont(Font.font(36));
-        text.setFill(Color.WHITE); // White text color for better contrast
+        text.setFont(Font.font("Roboto", FontWeight.EXTRA_BOLD, 36));
+
+        // text.setFill(Color.WHITE); // White text color for better contrast
 
         setAlignment(Pos.CENTER);
         getChildren().addAll(border, text);
@@ -62,8 +63,10 @@ public class Tile extends StackPane {
             this.symbol = symbol;
             if (symbol.equals(GameSymbol.X)) {
                 text.setText("X");
+                text.setFill(Color.web("#007AFF"));
             } else {
                 text.setText("O");
+                text.setFill(Color.web("#FF3B30"));
             }
         }
     }
@@ -74,5 +77,21 @@ public class Tile extends StackPane {
 
     public void setxTurn(boolean xTurn) {
         this.xTurn = xTurn;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
