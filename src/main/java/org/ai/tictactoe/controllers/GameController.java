@@ -5,11 +5,15 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -18,7 +22,9 @@ import java.util.Set;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.ai.tictactoe.HelloApplication;
 import org.ai.tictactoe.logic.game.*;
 import org.ai.tictactoe.logic.player.ComputerPlayer;
 import org.ai.tictactoe.logic.player.HumanPlayer;
@@ -54,6 +60,7 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        resetBoard();
         Platform.runLater(this::fillGrid);
 
         if (gameType.equals(GameType.PLAYER_VS_PLAYER)) {
@@ -260,5 +267,20 @@ public class GameController implements Initializable {
         status = judger.getStateAferPlay(gameBoard, gameBoard.getLastPlay()[0], gameBoard.getLastPlay()[1]);
         updateGraphicBoard();
         return status;
+    }
+
+    private void resetBoard() {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                gameBoard.setPlace(null, i, j);
+            }
+        }
+    }
+
+    public void returnBack(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load(), 1140, 780);
+        stage.setScene(scene);
     }
 }

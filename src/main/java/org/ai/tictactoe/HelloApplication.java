@@ -16,6 +16,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Tic Tac Toe GPT X.O");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/ai/tictactoe/images/icon.png")));
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
