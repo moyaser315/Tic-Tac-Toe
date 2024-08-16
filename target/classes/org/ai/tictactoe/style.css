@@ -1,0 +1,28 @@
+.root {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #88C6FF, #3A78D1);;
+}
+
+.btn0 {
+    -fx-background-color: #00b300;
+}
+
+.btn1 {
+    -fx-background-color: #3A78D1;
+}
+
+.btn2 {
+    -fx-background-color: #dc0000;
+}
+
+.btn3 {
+    -fx-background-color: #FF4242;
+}
+
+.btn4 {
+    -fx-background-color: #FF0009;
+}
+
+.btn5 {
+    -fx-background-color: #AA0000;
+}
+
