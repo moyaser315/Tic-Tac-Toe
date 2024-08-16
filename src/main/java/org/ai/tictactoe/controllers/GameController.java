@@ -115,13 +115,16 @@ public class GameController implements Initializable {
             if (status[0].equals(GameStatus.IN_PROGRESS)) {
                 if (firstTurn) {
                     status[0] = playAsComputer(player1);
-                    playStatus(status[0]);
                 } else {
                     status[0] = playAsComputer(player2);
-                    playStatus(status[0]);
                 }
+
+                // Update the UI based on the current status
+                Platform.runLater(() -> playStatus(status[0]));
+
+                // Check if the game has ended
                 if (status[0] != null && (checkWin(status[0]) || status[0].equals(GameStatus.DRAW))) {
-                    checkEndGame(status[0]);
+                    Platform.runLater(() -> checkEndGame(status[0]));
                 }
 
                 firstTurn = !firstTurn;
@@ -131,6 +134,7 @@ public class GameController implements Initializable {
         firstTimeline.setCycleCount(Timeline.INDEFINITE);
         firstTimeline.play();
     }
+
 
 
     @FXML
